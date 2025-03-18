@@ -1,0 +1,49 @@
+int main(){
+        
+    char ce , cv , cf;
+    char menu;
+    int produto;
+    printf ("Digite: \n 1) - Controle de Estoque\n 2) - Controle de Vendas \n 3) - Controle financeiro \n 4) - Voltar \n \n "); 
+    scanf(" %c", &menu);
+    switch(menu){
+        
+        case '1':
+
+         while(1){
+            printf("\n Bem Vindo ao Controle de Estoque!\n");
+            printf("Digite:  \n 1) - Cadastrar Produto\n 2) - Visualizar Produto\n 3) - Voltar ao menu principal\n");
+            scanf(" %c", &ce);
+            if(ce =='1'){
+                printf("Digite o valor do Produto: ");
+                scanf(" %d", &produto);
+                printf("digite o nome do produto: ");
+                scanf(" %d", &produto);
+                printf("produto cadastrado!");
+            }
+            break;
+         }
+    }
+        switch(menu){    
+        case '2':
+        printf("\n Bem Vindo ao Controle de vendas!");
+            
+            break;
+        }
+        switch(menu){
+        case '3':
+            printf("\n Bem Vindo ao Controle Financeiro!");
+            break;
+        
+        case '4':
+            printf("Voltar");
+            break;
+        
+        default:
+            printf("\nOpção invalida");
+            break;
+    }
+    
+    
+    
+    return 0;
+}
