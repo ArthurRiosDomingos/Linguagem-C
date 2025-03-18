@@ -1,0 +1,215 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Estrutura para produtos
+struct ProdutoEstoque {
+    int codigo;
+    char nome[50];
+    int quantidade;
+    int preco;
+};
+
+// Funções para controle financeiro
+float despesas = 0.0; // Total de despesas
+float receitas = 0.0;  // Total de receitas
+float saldo = 0.0;     // Saldo atual
+
+void registrarDespesas(float valor) {
+    despesas += valor;
+    printf("Despesa de R$%.2f registrada com sucesso!\n", valor);
+}
+
+void registrarReceitas(float valor) {
+    receitas += valor;
+    printf("Receita de R$%.2f registrada com sucesso!\n", valor);
+}
+
+void consultarSaldo() {
+    saldo = receitas - despesas;
+    printf("Saldo Atual: R$%.2f\n", saldo);
+}
+
+int main() {
+    char menu, ce;
+    int produto, quantidade;
+    char nomeProduto[50];
+    float valorRecebido, troco;
+    
+    // Definindo os produtos no estoque
+    struct ProdutoEstoque estoque[4] = {
+        {101, "Produto A", 50, 10},
+        {102, "Produto B", 30, 20},
+        {103, "Produto C", 20, 15},
+        {104, "Produto D", 15, 25}
+    };
+
+    while (1) {
+        // Exibe o menu principal
+        printf("\nDigite: \n");
+        printf("1) - Controle de Estoque\n");
+        printf("2) - Controle de Vendas \n");
+        printf("3) - Controle Financeiro \n");
+        printf("4) - Sair \n\n");
+        scanf(" %c", &menu); // Leitura da opção do menu
+
+        switch(menu) {
+            case '1': // Controle de Estoque
+                while (1) {
+                    printf("\nBem Vindo ao Controle de Estoque!\n");
+                    printf("Digite:  \n");
+                    printf("1) - Cadastrar Produto\n");
+                    printf("2) - Visualizar Produto\n");
+                    printf("3) - Voltar ao menu principal\n");
+                    scanf(" %c", &ce); // Leitura da escolha do usuário para o menu de estoque
+
+                    if (ce == '1') {
+                        // Cadastro de Produto
+                        printf("Digite o código do Produto: ");
+                        scanf("%d", &produto);
+                        printf("Digite o nome do produto: ");
+                        scanf(" %49[^\n]", nomeProduto); // Leitura do nome do produto
+                        printf("Digite a quantidade do produto: ");
+                        scanf("%d", &quantidade);
+                        printf("Digite o preço do produto: ");
+                        scanf("%d", &produto);
+
+                        // Atualizando no estoque
+                        for (int i = 0; i < 4; i++) {
+                            if (estoque[i].codigo == produto) {
+                                estoque[i].quantidade += quantidade; // Adicionando produto ao estoque
+                                printf("Produto %s com código %d e %d unidades cadastrado com sucesso!\n", nomeProduto, produto, quantidade);
+                                break;
+                            }
+                        }
+                    } else if (ce == '2') {
+                        // Visualizar Produto
+                        printf("Produtos cadastrados:\n");
+                        for (int i = 0; i < 4; i++) {
+                            printf("Código: %d | Nome: %s | Quantidade: %d | Preço: R$%d\n", 
+                                   estoque[i].codigo, estoque[i].nome, estoque[i].quantidade, estoque[i].preco);
+                        }
+                    } else if (ce == '3') {
+                        // Voltar ao menu principal
+                        break;
+                    } else {
+                        printf("Opção inválida! Tente novamente.\n");
+                    }
+                }
+                break;
+
+            case '2': // Controle de Vendas
+                printf("\nBem Vindo ao Controle de Vendas!\n");
+                while (1) {
+                    int opcaoVenda, totalVenda = 0;
+
+                    // Exibindo os produtos disponíveis para venda
+                    printf("Escolha um produto para venda:\n");
+                    for (int i = 0; i < 4; i++) {
+                        printf("%d) %s - Preço: R$%d | Estoque: %d unidades\n", 
+                               estoque[i].codigo, estoque[i].nome, estoque[i].preco, estoque[i].quantidade);
+                    }
+
+                    printf("Digite o código do produto (ou 0 para voltar): ");
+                    scanf("%d", &produto);
+
+                    if (produto == 0) {
+                        break; // Volta ao menu principal
+                    }
+
+                    // Verificando se o produto existe no estoque
+                    int encontrado = 0;
+                    for (int i = 0; i < 4; i++) {
+                        if (estoque[i].codigo == produto) {
+                            encontrado = 1;
+                            printf("Quantas unidades deseja comprar de %s? ", estoque[i].nome);
+                            scanf("%d", &quantidade);
+
+                            if (quantidade <= estoque[i].quantidade) {
+                                totalVenda = estoque[i].preco * quantidade;
+                                estoque[i].quantidade -= quantidade; // Atualiza o estoque
+                                registrarReceitas(totalVenda); // Adiciona a receita
+                                printf("Venda realizada com sucesso! Total: R$%d\n", totalVenda);
+                                break;
+                            } else {
+                                printf("Quantidade insuficiente em estoque!\n");
+                            }
+                        }
+                    }
+
+                    if (!encontrado) {
+                        printf("Produto não encontrado!\n");
+                    }
+
+                    // Se a venda foi realizada, perguntar sobre o pagamento
+                    if (totalVenda > 0) {
+                        int opcaoPagamento;
+
+                        printf("Escolha a forma de pagamento:\n");
+                        printf("1) Dinheiro\n");
+                        printf("2) Cartão\n");
+                        printf("Escolha uma opção: ");
+                        scanf("%d", &opcaoPagamento);
+
+                        if (opcaoPagamento == 1) {
+                            printf("Total da venda: R$%d\n", totalVenda);
+                            printf("Digite o valor recebido: R$");
+                            scanf("%f", &valorRecebido);
+
+                            if (valorRecebido < totalVenda) {
+                                printf("Valor insuficiente!\n");
+                            } else {
+                                troco = valorRecebido - totalVenda;
+                                printf("Troco a ser devolvido: R$%.2f\n", troco);
+                            }
+                        } else if (opcaoPagamento == 2) {
+                            printf("Pagamento realizado com cartão. Pagamento confirmado!\n");
+                        } else {
+                            printf("Opção inválida! Tente novamente.\n");
+                        }
+                    }
+                }
+                break;
+
+            case '3': // Controle Financeiro
+                printf("\nBem Vindo ao Controle Financeiro!\n");
+                while (1) {
+                    printf("Escolha uma opção:\n");
+                    printf("1) - Registrar Despesas\n");
+                    printf("2) - Registrar Receitas\n");
+                    printf("3) - Consultar Saldo\n");
+                    printf("4) - Voltar ao Menu Principal\n");
+                    scanf(" %c", &ce);
+
+                    if (ce == '1') {
+                        float despesa;
+                        printf("Digite o valor da despesa: R$");
+                        scanf("%f", &despesa);
+                        registrarDespesas(despesa);
+                    } else if (ce == '2') {
+                        float receita;
+                        printf("Digite o valor da receita: R$");
+                        scanf("%f", &receita);
+                        registrarReceitas(receita);
+                    } else if (ce == '3') {
+                        consultarSaldo();
+                    } else if (ce == '4') {
+                        break; // Voltar ao menu principal
+                    } else {
+                        printf("Opção inválida! Tente novamente.\n");
+                    }
+                }
+                break;
+
+            case '4': // Sair
+                printf("Saindo do sistema...\n");
+                return 0;
+
+            default: // Caso de opção inválida
+                printf("\nOpção inválida! Tente novamente.\n");
+                break;
+        }
+    }
+
+    return 0;
+}
+
