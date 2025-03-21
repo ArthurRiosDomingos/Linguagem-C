@@ -1,0 +1,121 @@
+#include <stdio.h>
+float despesas = 0.0; // Total de despesas
+float receitas = 0.0;  // Total de receitas
+float saldo = 0.0;     // Saldo atual
+
+void registrarDespesas(float valor) {
+    despesas += valor;
+    printf("Despesa de R$%.2f registrada com sucesso!\n", valor);
+}
+
+void registrarReceitas(float valor) {
+    receitas += valor;
+    printf("Receita de R$%.2f registrada com sucesso!\n", valor);
+}
+
+void consultarSaldo() {
+    saldo = receitas - despesas;
+    printf("Saldo Atual: R$%.2f\n", saldo);
+}
+
+int main(){
+        
+    char ce , cv , cf;
+    char menu;
+    int produto;
+    while(1){
+    printf ("\n Digite: \n 1) - Controle de Estoque\n 2) - Controle de Vendas \n 3) - Controle financeiro \n 4) - Encerrar Programa \n \n "); 
+    scanf(" %c", &menu);
+    
+    
+    switch(menu){
+        
+        case '1':
+
+         while(1){
+            
+            printf("\n Bem Vindo ao Controle de Estoque! \n \n ");
+            printf("\n 1)Visualizar produtos: \n 2)Voltar ao Menu: \n \n ");
+            scanf(" %c", &ce);
+            if(ce == '1'){
+            printf("\n Itens Disponíveis: \n \n");
+            printf(" \n • 101 - Produto A - 50 unidades ");
+            printf(" \n • 102 - Produto B - 30 unidades ");
+            printf(" \n • 103 - Produto c - 20 unidades ");
+            printf(" \n • 104 - Produto d - 15 unidades \n ");
+            
+            printf(" \n \n 2)Voltar ao Menu: ");
+            scanf(" %c", &ce);
+            }else if(ce == '2'){
+
+            }
+                    
+            break;
+            }
+            
+    }
+        switch(menu){
+            while(1){
+        case '2':
+        printf("\n Bem Vindo ao Controle de vendas! \n Digite: ");
+         printf("\n 1)Itens Disponíveis: \n 2)Voltar ao Menu: \n \n ");
+            scanf(" %c", &cv);
+            if(cv == '1'){
+            printf("\n Itens Disponíveis: \n \n");
+            printf(" \n • 201 - Produto A - R$10,00 ");
+            printf(" \n • 202 - Produto B - R$20,00 ");
+            printf(" \n • 203 - Produto c - R$15,00 ");
+            printf(" \n • 204 - Produto d - R$25,00 \n ");
+            
+            printf(" \n \n 2)Voltar ao Menu: ");
+            scanf(" %c", &cv);
+            }else if(cv == '2'){
+                
+            }
+            
+            break;
+            }
+            
+        }
+        switch(menu){
+        while(1){
+        case '3':
+            printf("\n Bem Vindo ao Controle Financeiro!");
+            printf("\n 1)Registrar Dispesas: \n 2)Registrar Receita: \n 3)Consultar Saldo: \n 4)Voltar ao Menu: \n \n ");
+            scanf(" %c", &cf);
+            if (cf == '1') {
+                float despesa;
+                printf("Digite o valor da despesa: R$");
+                scanf("%f", &despesa);
+                registrarDespesas(despesa);
+                } else if (cf == '2') {
+                float receita;
+                printf("Digite o valor da receita: R$");
+                scanf("%f", &receita);
+                registrarReceitas(receita);
+                } else if (cf == '3') {
+                        consultarSaldo();
+                } else if (cf == '4') {
+                     // Voltar ao menu principal
+                }
+                    
+            break;
+            }
+        }
+        switch(menu){
+        case '4':
+             printf("Saindo do sistema...\n");
+                return 0;
+
+
+                printf("\nOpção inválida! Tente novamente.\n");
+                break;
+        
+        
+    }
+    
+    }
+      
+    return 0;
+
+}
