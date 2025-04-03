@@ -1,11 +1,3 @@
-/******************************************************************************
-
-Welcome to GDB Online.
-  GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
-  C#, OCaml, VB, Perl, Swift, Prolog, Javascript, Pascal, COBOL, HTML, CSS, JS
-  Code, Compile, Run and Debug online from anywhere in world.
-
-*******************************************************************************/
 #include <stdio.h>
 
 // Variáveis Globais
@@ -46,13 +38,13 @@ void registrarVenda(int produto, int quantidade) {
 // Função para realizar o pagamento
 void realizarPagamento() {
     float totalGeral = totalReceitas + totalDespesas;
-    printf("\nConsolidado:\n");
-    printf("Vendas - Total: R$%.2f\n", totalReceitas);
-    printf("Controle Financeiro - Total: R$%.2f\n", totalDespesas);
-    printf("Total Geral: R$%.2f\n", totalGeral);
+    printf("\n==========Pagamento==========\n Consolidado:\n");
+    printf(" Vendas - Total: R$%.2f\n", totalReceitas);
+    printf(" Controle Financeiro - Total: R$%.2f\n", totalDespesas);
+    printf(" Total Geral: R$%.2f\n", totalGeral);
     
     int metodoPagamento;
-    printf("\nEscolha a forma de pagamento:\n1) Dinheiro\n2) Cartão\n");
+    printf("\n==========Forma de Pagamento==========\n Escolha a forma de pagamento:\n 1) Dinheiro\n 2) Cartão\n");
     scanf("%d", &metodoPagamento);
     
     if (metodoPagamento == 1) {
@@ -99,12 +91,12 @@ void realizarPagamento() {
 int main() {
     char opcaoMenu;
     while (1) {
-        printf("\nDigite:\n1) Controle de Estoque\n2) Controle de Vendas\n3) Controle Financeiro\n4) Pagamento\n5) Encerrar Programa\n\n");
+        printf("\n==========Bem Vindo ao Menu Principal==========\n Digite:\n 1) Controle de Estoque\n 2) Controle de Vendas\n 3) Controle Financeiro\n 4) Pagamento\n 5) Encerrar Programa\n\n");
         scanf(" %c", &opcaoMenu);
         // opcao dos itens disponiveis
         switch (opcaoMenu) {
             case '1':
-                printf("\nItens Disponíveis:\n");
+                printf("\n==========Itens Disponíveis==========\n");
                 printf("1 - Produto A - 50 unidades\n");
                 printf("2 - Produto B - 30 unidades\n");
                 printf("3 - Produto C - 20 unidades\n");
@@ -113,7 +105,7 @@ int main() {
             // opcao de itens para venda
             case '2': {
                 int produto, quantidade;
-                printf("\nItens Disponíveis para Venda:\n");
+                printf("\n==========Itens Disponíveis para Venda==========\n");
                 printf("1 - Produto A - R$10,00\n");
                 printf("2 - Produto B - R$20,00\n");
                 printf("3 - Produto C - R$15,00\n");
@@ -128,7 +120,7 @@ int main() {
             // opcoes do financeiro
             case '3': {
                 char opcaoFinanceiro;
-                printf("\n1) Registrar Despesa\n2) Registrar Receita\n3) Consultar Saldo\n4) Voltar ao Menu\n");
+                printf("\n==========Bem Vindo ao Controle Financeiro==========\n 1) Registrar Despesa\n 2) Registrar Receita\n 3) Consultar Saldo\n 4) Voltar ao Menu\n");
                 scanf(" %c", &opcaoFinanceiro);
                 if (opcaoFinanceiro == '1') {
                     float despesa;
